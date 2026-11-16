@@ -70,14 +70,16 @@ WHERE
 The following SQL queries were developed to answer specific business questions:
 
 
+
+***Q.1 Write a SQL query to retrieve all columns for sales made on '2022-11-05***
 ```sql
--- Q.1 Write a SQL query to retrieve all columns for sales made on '2022-11-05
 SELECT * FROM retail_sales
 WHERE sale_date = '2022-11-05'
 ;
+```
 
--- Q.2 Write a SQL query to retrieve all transactions where the category is 'Clothing' 
--- and the quantity sold is more than 10 in the month of Nov-2022
+***Q.2 Write a SQL query to retrieve all transactions where the category is 'Clothing' and the quantity sold is more than 10 in the month of Nov-2022***
+```sql
 SELECT * FROM retail_sales
 WHERE
      category = 'Clothing'
@@ -88,29 +90,39 @@ WHERE
      AND
      quantity>=4
      ;
+```
 
--- Q.3 Write a SQL query to calculate the total sales (total_sale) for each category
+***Q.3 Write a SQL query to calculate the total sales (total_sale) for each category***
+```sql
 SELECT category, SUM(total_sale) AS Net_sales, COUNT(*) AS Total_orders
 FROM retail_sales
 GROUP BY category;
+```
 
--- Q.4 Write a SQL query to find the average age of customers who purchased items from the 'Beauty' category.
+***Q.4 Write a SQL query to find the average age of customers who purchased items from the 'Beauty' category.***
+```sql
 SELECT category, ROUND(AVG(age),2) AS Average_age
 FROM retail_sales
 WHERE category = 'Beauty';
+```
 
--- Q.5 Write a SQL query to find all transactions where the total_sale is greater than 1000.
+***Q.5 Write a SQL query to find all transactions where the total_sale is greater than 1000.***
+```sql
 SELECT * FROM retail_sales
 WHERE total_sale > 1000
 ;
+```
 
--- Q.6 Write a SQL query to find the total number of transactions (transaction_id) made by each gender in each category
+***Q.6 Write a SQL query to find the total number of transactions (transaction_id) made by each gender in each category***
+```sql
 SELECT category,gender, COUNT(*) AS Total_transactions FROM retail_sales
 GROUP BY category, gender
 ORDER BY category
 ;
+```
 
--- Q.7 Write a SQL query to calculate the average sale for each month. Find out best selling month in each year
+***Q.7 Write a SQL query to calculate the average sale for each month. Find out best selling month in each year***
+```sql
 SELECT * FROM
 (
 SELECT YEAR(sale_date) AS year, MONTH(sale_date) AS month, AVG(total_sale) AS Average_sales,
@@ -120,20 +132,26 @@ GROUP BY YEAR(sale_date), MONTH(sale_date)
 ) as t1
 WHERE sales_rank = 1;
 -- ORDER BY YEAR, Average_sales DESC;
+```
 
--- Q.8 Write a SQL query to find the top 5 customers based on the highest total sales 
+***Q.8 Write a SQL query to find the top 5 customers based on the highest total sales***
+```sql
 SELECT customer_id, SUM(total_sale) AS total_sales
 FROM retail_sales
 GROUP BY customer_id
 ORDER BY total_sales DESC
 LIMIT 5;
+```
 
--- Q.9 Write a SQL query to find the number of unique customers who purchased items from each category
+***Q.9 Write a SQL query to find the number of unique customers who purchased items from each category***
+```sql
 SELECT category, COUNT(DISTINCT customer_id) AS customers
 FROM retail_sales
 GROUP BY category;
+```
 
--- Q.10 Write a SQL query to create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)
+***Q.10 Write a SQL query to create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)***
+```sql
 WITH Hourly_sale
 AS
 (
@@ -166,13 +184,6 @@ GROUP BY Shift;
 ## Conclusion
 
 This project serves as a comprehensive introduction to SQL for data analysts, covering database setup, data cleaning, exploratory data analysis, and business-driven SQL queries. The findings from this project can help drive business decisions by understanding sales patterns, customer behavior, and product performance.
-
-## How to Use
-
-1. **Clone the Repository**: Clone this project repository from GitHub.
-2. **Set Up the Database**: Run the SQL scripts provided in the `database_setup.sql` file to create and populate the database.
-3. **Run the Queries**: Use the SQL queries provided in the `analysis_queries.sql` file to perform your analysis.
-4. **Explore and Modify**: Feel free to modify the queries to explore different aspects of the dataset or answer additional business questions.
 
 
 
